@@ -10,10 +10,10 @@ var CRI_CAL_URL = "http://cricapi.com/api/matchCalendar";
 var CRI_MLS_URL = "http://cricapi.com/api/matches";
 
 
-var SMS_URL_send = "http://localhost:7000/sms/send";
-var SMS_password = "pass";
-var SMS_source_add = "77777";
-var SMS_appID = "APP_000001";
+var SMS_URL_send = "https://api.dialog.lk/sms/send";
+var SMS_password = "";
+var SMS_source_add = "77777777777";
+var SMS_appID = "APP_031661";
 var SMS_appversion = "1.0";
 
 var CAL_DayRange = 7;
@@ -254,7 +254,7 @@ function terminate_sql_connec(con){
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob({
-  cronTime: '00 30 11 * * 1', // last one 1-5
+  cronTime: '00 30 16 * * 1', // last one 1-5
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
