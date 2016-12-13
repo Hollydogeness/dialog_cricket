@@ -10,11 +10,10 @@ var CRI_CAL_URL = "http://cricapi.com/api/matchCalendar";
 var CRI_MLS_URL = "http://cricapi.com/api/matches";
 
 
-var SMS_URL_send = "http://localhost:7000/sms/send";
-var SMS_password = "pass";
-var SMS_source_add = "77777";
-var SMS_appID = "APP_000001";
-var SMS_appversion = "1.0";
+var USSD_URL_send = "http://localhost:7000/ussd/send";
+var USSD_password = "pass";
+var USSD_appID = "APP_000001";
+var USSD_appversion = "1.0";
 
 var CAL_DayRange = 7;
 
@@ -24,9 +23,12 @@ var SQL_PASSWORD="password";
 var SQL_DATABASE="dialog_crick";
 var SQL_CAL_USER_TABLE = "dialog_cricket_calandar";
 
-var SMS_USER_NUMBERS = []; 
-
 app.use(bodyParser.json());
+
+function def_response(){
+	this.statusCode = "S1000";
+	this.statusDetail = "Success";
+}
 
 app.post('/crick_cal/subscribe', function(req, res) {
 	if (req.body.status == "REGISTERED"){
@@ -40,6 +42,18 @@ app.post('/crick_cal/subscribe', function(req, res) {
 
 	res.send(job);
 })
+
+app.post('/crick_scores/start', function(req, res) {
+	if (req.body.status == "REGISTERED"){
+			adduser();
+	}
+	else{
+		removeuser();
+	}
+	var response = new def_response();
+	res.send(response);
+})
+
 
 //CRICK_STUFF
 function send_crick_objct(){
@@ -129,78 +143,6 @@ function do_sms(ary){
 
 }
 
-function get_date_deferance(date){
-
-	var today = new Date();
-	today = Date.parse(today);
-	var day = "",month="" ,year="";
-	var i = 0 ;
-	while(date[i] != " "){
-		day += date[i];
-		i++;
-	} 
-	i++;
-	while(date[i] != " "){
-		month += date[i];
-		i++;
-	} 
-	i++;
-	while(i<date.length){
-		year += date[i];
-		i++
-	}
-
-
-	switch(month){
-		case "January":
-			month = 1;
-			break;
-		case "February":
-			month = 2;
-			break;
-		case "March":
-			month = 3;
-			break;
-		case "Aprial":
-			month = 4;
-			break;
-		case "May":
-			month = 5;
-			break;
-		case "June":
-			month = 6;
-			break;
-		case "July":
-			month = 7;
-			break;
-		case "August":
-			month = 8;
-			break;
-		case "September":
-			month = 9;
-			break;
-		case "October":
-			month = 10;
-			break;
-		case "November":
-			month = 11;
-			break;
-		case "December":
-			month = 12;
-			break;
-		default:
-			console.log("Erroe pahrsing date , month")
-	}
-
-	day = parseInt(day);
-	year = parseInt(year);
-	var d = new Date(year,month-1,day,0,0,0,0);
-	d = Date.parse(d);
-
-	var days = 1000*60*60*24;
-
-	return (d - today)/days ;
-}
 
 //SQL STUFF
 
@@ -263,24 +205,6 @@ function terminate_sql_connec(con){
 
 
 
-
-var CronJob = require('cron').CronJob;
-var job = new CronJob({
-  cronTime: '00 30 11 * * 1', // last one 1-5
-  onTick: function() {
-    /*
-     * Runs every weekday (Monday through Friday)
-     * at 11:30:00 AM. It does not run on Saturday
-     * or Sunday.
-     */
-
-    update_calander();
-    console.info('cron job completed');
-  },
-  start: false,
-  //timeZone: 'America/Los_Angeles'
-});
-job.start();
 
 
 
