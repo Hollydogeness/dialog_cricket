@@ -1,0 +1,6 @@
+Sends you Details(Date, Venue, Teams Playing) of Cricket Matches on every week. (On every Monday at 11.30 am)
+
+
+To Subscribe YOU should type REG crickcal & send the SMS to 77000 Unsubscribe, type UNREG crickcal & send the SMS to 77000
+
+Cricket Calendar Pro
