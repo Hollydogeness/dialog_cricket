@@ -23,9 +23,9 @@ var CRI_SCR_URL = "http://cricapi.com/api/cricketScore";
 var CRI_CAL_URL = "http://cricapi.com/api/matchCalendar";
 
 
-var USSD_URL_send = "http://localhost:7000/ussd/send";
-var USSD_password = "pass";
-var USSD_appID = "APP_000001";
+var USSD_URL_send = "https://api.dialog.lk/ussd/send";
+var USSD_password = "375bda69f0294ac9de57093c34997e77";
+var USSD_appID = "APP_031686";
 var USSD_appversion = "1.0";
 
 var CAL_DayRange = 7;
